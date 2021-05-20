@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Add_Update_Delete
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            // List view properties
+            listView1.View= View.Details;
+            listView1.FullRowSelect = true;
+            // Construct columns
+            listView1.Columns.Add("Name", 150);
+            listView1.Columns.Add("Position", 150);
+            listView1.Columns.Add("Team", 150);
+        }
+        // Add to listview
+        private void add(String name, String pos, String team)
+        {
+            //Row
+            String[] row = { name, pos, team };
+            ListViewItem item = new ListViewItem(row);
+            listView1.Items.Add(item);
+        }
+
+        //Update
+
+        private void update()
+        {
+            listView1.SelectedItems[0].SubItems[0].Text = textBox1.Text;
+            listView1.SelectedItems[0].SubItems[1].Text = textBox2.Text;
+            listView1.SelectedItems[0].SubItems[2].Text = textBox3.Text;
+
+            //Clear txt
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+        }
+
+        //Delete
+        private void delete()
+        {
+            if (MessageBox.Show("Do you want to Delete", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            {
+                listView1.Items.RemoveAt(listView1.SelectedIndices[0]);
+                //Clear txt
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            add(textBox1.Text, textBox2.Text, textBox3.Text);
+
+            //Clear txt
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            update();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            delete();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            //Clear txt
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            //Clear txt
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+        }
+
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            textBox1.Text = listView1.SelectedItems[0].SubItems[0].Text;
+            textBox2.Text = listView1.SelectedItems[0].SubItems[1].Text;
+            textBox3.Text = listView1.SelectedItems[0].SubItems[2].Text;
+        }
+    }
+}
